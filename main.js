@@ -14,7 +14,7 @@ let taskInput = document.querySelector(".task-input");
 let addButton = document.querySelector(".add-button");
 let tabs = document.querySelectorAll(".task-tabs div");
 let underLine = document.getElementById("tab-underline");
-let input = document.getElementById('text-input')
+let input = document.getElementById('text-input');
 let taskList = [];
 let mode='all';
 let filterList = [];
@@ -58,16 +58,20 @@ function render() {
     list = [];
     if (mode === "all") {
         list = taskList;
-    } else if (mode === "ongoing" || mode === "done") {
-        list = filterList;
+    } else if (mode === "ongoing") {
+        list = taskList.filter((task) => !task.isComplete);
+    } else if (mode === "done") {
+        list = taskList.filter((task) => task.isComplete);
+    //else if (mode === "ongoing" || mode === "done") {
+        //list = filterList;
     }
     //2. 리스트를 달리 보여준다
     //all taskList
     //ongoing, done filterList
-    let resultHTML = "";
+   // let resultHTML = "";
     for(let i = 0; i < list.length; i++) {
-        if(list[i].isComplete) {
-            resultHTML += `<div class="task task-done id="${list[i].id}">
+        if (list[i].isComplete) {
+            result += `<div class="task task-done id="${list[i].id}">
                 <div>${list[i].taskContent}</div>
                 <div class="button-box">
                 <button style="color: grey;" onclick="toggleDone('${list[i].id}')"><i class="fa-solid fa-rotate-left"></i></button>
@@ -75,7 +79,7 @@ function render() {
                 </div>
             </div>`;
         }else {
-            resultHTML += `<div class="task id="${list[i].id}">
+            result += `<div class="task id="${list[i].id}">
                 <div>${list[i].taskContent}</div>
                 <div class="button-box">
                 <button style="color: green;" onclick="toggleDone('${list[i].id}')"><i class="fa-solid fa-check"></i></button>
@@ -85,11 +89,11 @@ function render() {
         }
     }
 
-    document.getElementById("task-board").innerHTML = resultHTML;
+    document.getElementById("task-board").innerHTML = result;
 }
 
 function toggleDone(id) {
-    for(let i = 0; i < taskList.length; i++) {
+    for (let i = 0; i < taskList.length; i++) {
         if(taskList[i].id === id) {
             taskList[i].isComplete = !taskList[i].isComplete;
             break;
@@ -99,17 +103,17 @@ function toggleDone(id) {
 }
 
 function deleteTask(id) {
-    for(let i = 0; i < taskList.length; i++) {
-        if(taskList[i].id == id) {
+    for (let i = 0; i < taskList.length; i++) {
+        if(taskList[i].id === id) {
             taskList.splice(i, 1);
-            break;
+            //break;
         }
     }
     filter();
 }
 
 function filter(e) {
-    if(e) {
+    if (e) {
         //전체 리스트를 보여준다
         mode = e.target.id;
         underLine.style.width = e.target.offsetWidth + "px";
@@ -122,21 +126,22 @@ function filter(e) {
     //진행중인 아이템을 보여준다.
     //task.isComplete=false
         for(let i = 0; i< taskList.length; i++) {
-            if (taskList[i].isComplete === false) {
+            if (taskList[i].isComplete == false) {
             filterList.push(taskList[i])
             }
         }
-    }else if(mode === "done") {
+    }else if (mode === "done") {
         //끝나는 케이스
         //task.isComplete=true
-        for(let i = 0; i < taskList.length; i++) {
-            if(taskList[i].isComplete) {
+        for (let i = 0; i < taskList.length; i++) {
+            if (taskList[i].isComplete) {
                 filterList.push(taskList[i])
             }
         }
     }
     render();
 }
+
 function randomIDGenerate(){
     return `_` + Math.random().toString(36).substr(2, 9);
 }
