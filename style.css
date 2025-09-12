@@ -68,7 +68,7 @@ body {
 .button-box {
     display: flex;
 }
-.button-box i {
+.button-box button {
     height: 100%;
     border: none;
     width: 5em;
@@ -76,7 +76,7 @@ body {
     background-color: white;
     transition: 0.5s;
 }
-.button-box i :active {
+.button-box button :active {
     position: relative;
     top: 2px;
 }
@@ -85,4 +85,18 @@ body {
 .add-button {
     border: none;
     background-color: lightblue;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+
+}
+.add-button:hover {
+    background-color: lightskyblue;
+}
+
+.button-box button:first-child:hover {
+    background-color: lightskyblue;
+}
+
+.button-box button:nth-child(2):hover {
+    background-color: lightcoral;
+
 }

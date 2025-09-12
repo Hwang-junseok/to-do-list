@@ -66,20 +66,20 @@ function render() {
     //ongoing, done filterList
     let resultHTML = "";
     for(let i = 0; i < list.length; i++) {
-        if(list[i].isComplete == true) {
+        if(list[i].isComplete) {
             resultHTML += `<div class="task task-done id="${list[i].id}">
                 <div>${list[i].taskContent}</div>
                 <div class="button-box">
-                <i class="fa-solid fa-rotate-left" style="color: grey;" onclick="toggleComplete('${list[i].id}')"></i>
-                <i class="fa-solid fa-trash-can" style="color:red;" onclick="deleteTask('${list[i].id}')"></i>
+                <button style="color: grey;" onclick="toggleDone('${list[i].id}')"><i class="fa-solid fa-rotate-left"></i></button>
+                <button style="color:red;" onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
             </div>`;
         }else {
             resultHTML += `<div class="task id="${list[i].id}">
                 <div>${list[i].taskContent}</div>
                 <div class="button-box">
-                <i class="fa-solid fa-check" style="color: green;" onclick="toggleComplete('${taskList[i].id}')"></i>
-                <i class="fa-solid fa-trash-can" style="color:red;" onclick="deleteTask('${taskList[i].id}')"></i>
+                <button style="color: green;" onclick="toggleDone('${list[i].id}')"><i class="fa-solid fa-check"></i></button>
+                <button style="color:red;" onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
             </div>`;
         }
@@ -88,9 +88,9 @@ function render() {
     document.getElementById("task-board").innerHTML = resultHTML;
 }
 
-function toggleComplete(id) {
+function toggleDone(id) {
     for(let i = 0; i < taskList.length; i++) {
-        if(taskList[i].id == id) {
+        if(taskList[i].id === id) {
             taskList[i].isComplete = !taskList[i].isComplete;
             break;
         }
@@ -140,3 +140,10 @@ function filter(e) {
 function randomIDGenerate(){
     return `_` + Math.random().toString(36).substr(2, 9);
 }
+
+
+//<i class="fa-solid fa-rotate-left" style="color: grey;" onclick="toggleComplete('${list[i].id}')"></i>
+//<i class="fa-solid fa-trash-can" style="color:red;" onclick="deleteTask('${list[i].id}')"></i>
+
+//<i class="fa-solid fa-check" style="color: green;" onclick="toggleComplete('${taskList[i].id}')"></i>
+//<i class="fa-solid fa-trash-can" style="color:red;" onclick="deleteTask('${taskList[i].id}')"></i>
